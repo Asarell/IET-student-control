@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel - Teacher Ale</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+  <!-- Anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-pink-100 to-purple-200 min-h-screen p-6">
+
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-purple-700">👩‍🏫 Panel de la profesora Ale</h1>
+    <button onclick="logout()"
+      class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+      <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
+    </button>
+  </div>
+
+  <!-- Lista de alumnos -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="student-list">
+    <!-- Botones de alumnos -->
+    <button onclick="goToStudent('alumno_sandy.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+      Sandy 
+    </button>
+
+    <button onclick="goToStudent('alumno_nadia.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+      Nadia
+    </button>
+
+    <button onclick="goToStudent('alumno_moni.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Moni Padilla
+    </button>
+
+    <button onclick="goToStudent('alumno_rouss.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Rouss
+    </button>
+
+    <button onclick="goToStudent('alumno_josué.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Josué
+    </button> 
+
+    <button onclick="goToStudent('alumno_montse.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Montse Arellano
+    </button>
+
+    <button onclick="goToStudent('alumno_maryalegria.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Mary Alegría
+    </button>
+
+    <button onclick="goToStudent('alumno_ricardo.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Ricardo Lagunes
+    </button>
+
+    <button onclick="goToStudent('alumno_marycarmen.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Marycarmen
+    </button>
+
+    <button onclick="goToStudent('alumno_aimee.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Aimee
+    </button>
+   
+  <button onclick="goToStudent('alumno_paorosales.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Pao Rosales
+    </button>
+
+    <button onclick="goToStudent('alumno_Ana Elisa.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Ana Elisa
+    </button>
+
+    <button onclick="goToStudent('alumno_Loth.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Loth
+    </button>
+
+    <button onclick="goToStudent('alumno_hanny.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+     Hanny
+    </button>
+
+    <button onclick="goToStudent('alumno_dina.html')"
+      class="bg-white border-2 border-purple-400 hover:bg-purple-100 p-6 rounded-xl shadow-md transition-all text-purple-700 font-semibold text-lg">
+    Dina
+    </button>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbS_UCnlfw3P2loqpTl6Oh8A2Xswz3rPY",
+      authDomain: "iet-student-control.firebaseapp.com",
+      projectId: "iet-student-control",
+      storageBucket: "iet-student-control.firebasestorage.app",
+      messagingSenderId: "635566809825",
+      appId: "1:635566809825:web:696842a0cb60356ed10da0"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Función para cerrar sesión
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "index.html";
+      }).catch((error) => {
+        alert("Error al cerrar sesión");
+      });
+    }
+
+    // Función para ir a cada alumno
+    function goToStudent(fileName) {
+      window.location.href = fileName;
+    }
+
+    // Animación con Anime.js
+    anime({
+      targets: "#student-list button",
+      translateY: [50, 0],
+      opacity: [0, 1],
+      delay: anime.stagger(100),
+      easing: "easeOutExpo"
+    });
+  </script>
+</body>
+</html>
