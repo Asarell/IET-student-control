@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mía - It's English Time</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-rose-100 min-h-screen p-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-pink-800 mb-2">👩‍🎓 Mía</h1>
+        <p class="text-gray-600">Alumno de Ale - Control de Pagos y Asistencias</p>
+      </div>
+      <div class="flex gap-4">
+        <button onclick="goToClasses()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all font-semibold">
+          <i class="fas fa-video mr-2"></i>CLASES
+        </button>
+                <button onclick="goToGoogleDrive()" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all font-semibold">
+          <i class="fas fa-cloud mr-2"></i>GOOGLE DRIVE
+        </button>
+        <button onclick="goToPanel()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl shadow-lg transition-all">
+          <i class="fas fa-arrow-left mr-2"></i>Volver
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">💰 Control de Pagos</h2>
+        <button onclick="addPaymentRow()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+          <i class="fas fa-plus mr-2"></i>Agregar Fila
+        </button>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table id="paymentTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha Última Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha Próximo Pago</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Clases</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Mes</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total a Pagar</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha de Pago</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Abono 1</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Abono 2</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Abono 3</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Restante</th>
+            </tr>
+          </thead>
+          <tbody id="paymentTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="2024-12-15">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="2025-01-15">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none" value="8">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="Diciembre 2024">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none payment-amount" value="2000" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="2024-12-01">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="1000" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="500" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
+                $500.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">📚 Seguimiento de Clases</h2>
+        <button onclick="addClassRow()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all">
+          <i class="fas fa-plus mr-2"></i>Agregar Fila
+        </button>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table id="classTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Mes y Año</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Clases Programadas</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Asistencias</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Faltas</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Clases para Reprogramar</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Clases Restantes</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Observaciones</th>
+            </tr>
+          </thead>
+          <tbody id="classTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="Diciembre 2024">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="8" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="7" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="1" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="1" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
+                0
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres">Falta por enfermedad, reprogramar para la siguiente semana</textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          <!-- Nueva sección: Reprogramación de Clases -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">🔄 Reprogramación de Clases</h2>
+        <div class="flex gap-2">
+          <button onclick="addRescheduleRow()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i>Agregar Fila
+          </button>
+          <button onclick="saveRescheduleData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-save mr-2"></i>Guardar
+          </button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Número de Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha de la Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha a Reprogramar</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Horario de la Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Asistencia</th>
+            </tr>
+          </thead>
+          <tbody id="rescheduleTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none" placeholder="1">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <select class="w-full border-none focus:outline-none bg-transparent">
+                  <option value="">Seleccionar</option>
+                  <option value="Asistencia">Asistencia</option>
+                  <option value="Falta">Falta</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goToClasses() {
+      window.open('INSERT_GOOGLE_MEET_LINK_HERE', '_blank');
+    }
+    
+    function goToGoogleDrive() {
+      window.open('INSERT_GOOGLE_DRIVE_LINK_HERE', '_blank');
+    }
+    
+    function goToPanel() {
+      window.location.href = 'panel_ale.html';
+    }
+    
+    // Función para calcular el restante en la tabla de pagos
+    function calculatePaymentRemaining(input) {
+      const row = input.closest('tr');
+      const totalPagar = parseFloat(row.querySelector('.payment-amount').value) || 0;
+      const abono1 = parseFloat(row.querySelectorAll('.abono')[0].value) || 0;
+      const abono2 = parseFloat(row.querySelectorAll('.abono')[1].value) || 0;
+      const abono3 = parseFloat(row.querySelectorAll('.abono')[2].value) || 0;
+      
+      const restante = totalPagar - abono1 - abono2 - abono3;
+      row.querySelector('.restante').textContent = '$' + restante.toFixed(2);
+      
+      // Cambiar color según el restante
+      const restanteElement = row.querySelector('.restante');
+      if (restante > 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-red-600 restante';
+      } else if (restante === 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-green-600 restante';
+      } else {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-blue-600 restante';
+      }
+    }
+    
+    // Función para calcular el restante en la tabla de clases
+    function calculateClassRemaining(input) {
+      const row = input.closest('tr');
+      const programadas = parseFloat(row.querySelector('.classes-programmed').value) || 0;
+      const asistencias = parseFloat(row.querySelectorAll('.class-input')[0].value) || 0;
+      const faltas = parseFloat(row.querySelectorAll('.class-input')[1].value) || 0;
+      const reprogramar = parseFloat(row.querySelectorAll('.class-input')[2].value) || 0;
+      
+      const totalUsado = asistencias + faltas + reprogramar;
+      const restante = programadas - totalUsado;
+      
+      // Actualizar el campo de clases restantes
+      const restanteElement = row.querySelector('.classes-remaining');
+      restanteElement.textContent = restante;
+      
+      // Cambiar color según el restante
+      if (restante > 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-blue-600 classes-remaining';
+      } else if (restante === 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining';
+      } else {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-red-600 classes-remaining';
+      }
+    }
+    
+    function addPaymentRow() {
+      const tbody = document.getElementById('paymentTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none" value="0">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="text" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none payment-amount" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
+          $0.00
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+    
+    function addClassRow() {
+      const tbody = document.getElementById('classTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="text" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none class-input" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none class-input" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none class-input" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
+          0
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres"></textarea>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+    
+    // Inicializar cálculos al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Calcular restante en tabla de pagos
+      const paymentRows = document.querySelectorAll('#paymentTableBody tr');
+      paymentRows.forEach(row => {
+        calculatePaymentRemaining(row.querySelector('.payment-amount'));
+      });
+      
+      // Calcular restante en tabla de clases
+      const classRows = document.querySelectorAll('#classTableBody tr');
+      classRows.forEach(row => {
+        calculateClassRemaining(row.querySelector('.classes-programmed'));
+      });
+    });
+    // Función para agregar fila a la tabla de reprogramación
+    function addRescheduleRow() {
+      const tbody = document.getElementById('rescheduleTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none" placeholder="1">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="time" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <select class="w-full border-none focus:outline-none bg-transparent">
+            <option value="">Seleccionar</option>
+            <option value="Asistencia">Asistencia</option>
+            <option value="Falta">Falta</option>
+          </select>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+
+    // Función para guardar datos de reprogramación
+    async function saveRescheduleData() {
+      try {
+        const tbody = document.getElementById('rescheduleTableBody');
+        const rows = tbody.querySelectorAll('tr');
+        const rescheduleData = [];
+
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll('input, select');
+          rescheduleData.push({
+            numeroClase: inputs[0].value,
+            fechaClase: inputs[1].value,
+            fechaReprogramar: inputs[2].value,
+            horarioClase: inputs[3].value,
+            asistencia: inputs[4].value
+          });
+        });
+
+        await db.collection('students').doc(studentName).collection('reschedule').doc('current').set({
+          reschedule: rescheduleData,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showNotification('Datos de reprogramación guardados exitosamente', 'success');
+      } catch (error) {
+        console.error('Error al guardar reprogramación:', error);
+        showNotification('Error al guardar reprogramación', 'error');
+      }
+    }
+
+  </script>
+</body>
+</html>

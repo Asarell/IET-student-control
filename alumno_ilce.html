@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ilce - It's English Time</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen p-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-pink-800 mb-2">👩‍🎓 Ilce</h1>
+        <p class="text-gray-600">Alumno de Astrid - Control de Pagos y Asistencias</p>
+      </div>
+      <div class="flex gap-4">
+        <button onclick="goToClasses()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all font-semibold">
+          <i class="fas fa-video mr-2"></i>CLASES
+        </button>
+                <button onclick="goToGoogleDrive()" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all font-semibold">
+          <i class="fas fa-cloud mr-2"></i>GOOGLE DRIVE
+        </button>
+        <button onclick="goToPanel()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl shadow-lg transition-all">
+          <i class="fas fa-arrow-left mr-2"></i>Volver
+        </button>
+      </div>
+    </div>
+
+    <!-- Nueva tabla de horarios -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">🕐 Horarios de Clase</h2>
+        <div class="flex gap-2">
+          <button onclick="addScheduleRow()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i>Agregar Fila
+          </button>
+          <button onclick="saveScheduleData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-save mr-2"></i>Guardar
+          </button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table id="scheduleTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Hora Central México</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Hora de la Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Días de Clase</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none" value="15:00">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none" value="15:00">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="Lunes, Miércoles, Viernes" placeholder="Ej: Lunes, Miércoles, Viernes">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">💰 Control de Pagos</h2>
+        <div class="flex gap-2">
+          <button onclick="addPaymentRow()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i>Agregar Fila
+          </button>
+          <button onclick="savePaymentData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-save mr-2"></i>Guardar
+          </button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table id="paymentTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha Última Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha Próximo Pago</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Clases</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Mes</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total a Pagar</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha de Pago</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Abono 1</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Abono 2</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Abono 3</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Restante</th>
+            </tr>
+          </thead>
+          <tbody id="paymentTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="2024-12-15">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="2025-01-15">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none" value="8">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="Diciembre 2024">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none payment-amount" value="2000" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="2024-12-01">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="1000" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="500" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
+                $500.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">📚 Seguimiento de Clases</h2>
+        <div class="flex gap-2">
+          <button onclick="addClassRow()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i>Agregar Fila
+          </button>
+          <button onclick="saveClassData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-save mr-2"></i>Guardar
+          </button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table id="classTable" class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Mes y Año</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Clases Programadas</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Asistencias</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Total Faltas</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Clases para Reprogramar</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Clases Restantes</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Observaciones</th>
+            </tr>
+          </thead>
+          <tbody id="classTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="Diciembre 2024">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="8" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="7" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="1" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="1" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
+                0
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres">Falta por enfermedad, reprogramar para la siguiente semana</textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+          <!-- Nueva sección: Reprogramación de Clases -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">🔄 Reprogramación de Clases</h2>
+        <div class="flex gap-2">
+          <button onclick="addRescheduleRow()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i>Agregar Fila
+          </button>
+          <button onclick="saveRescheduleData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-save mr-2"></i>Guardar
+          </button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Número de Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha de la Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Fecha a Reprogramar</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Horario de la Clase</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Asistencia</th>
+            </tr>
+          </thead>
+          <tbody id="rescheduleTableBody">
+            <tr>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none" placeholder="1">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <select class="w-full border-none focus:outline-none bg-transparent">
+                  <option value="">Seleccionar</option>
+                  <option value="Asistencia">Asistencia</option>
+                  <option value="Falta">Falta</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Configuración Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbS_UCnlfw3P2loqpTl6Oh8A2Xswz3rPY",
+      authDomain: "iet-student-control.firebaseapp.com",
+      projectId: "iet-student-control",
+      storageBucket: "iet-student-control.firebasestorage.app",
+      messagingSenderId: "635566809825",
+      appId: "1:635566809825:web:696842a0cb60356ed10da0"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const studentName = 'Ilce';
+
+    function goToClasses() {
+      window.open('INSERT_GOOGLE_MEET_LINK_HERE', '_blank');
+    }
+    
+    function goToGoogleDrive() {
+      window.open('INSERT_GOOGLE_DRIVE_LINK_HERE', '_blank');
+    }
+    
+    function goToPanel() {
+      window.location.href = 'panel_astrid.html';
+    }
+
+    // Función para agregar fila a la tabla de horarios
+    function addScheduleRow() {
+      const tbody = document.getElementById('scheduleTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="time" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="time" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="text" class="w-full border-none focus:outline-none" placeholder="Ej: Lunes, Miércoles, Viernes">
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+
+    // Función para guardar datos de horarios
+    async function saveScheduleData() {
+      try {
+        const tbody = document.getElementById('scheduleTableBody');
+        const rows = tbody.querySelectorAll('tr');
+        const scheduleData = [];
+
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll('input');
+          scheduleData.push({
+            horaCentral: inputs[0].value,
+            horaClase: inputs[1].value,
+            diasClase: inputs[2].value
+          });
+        });
+
+        await db.collection('students').doc(studentName).collection('schedules').doc('current').set({
+          schedules: scheduleData,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showNotification('Horarios guardados exitosamente', 'success');
+      } catch (error) {
+        console.error('Error al guardar horarios:', error);
+        showNotification('Error al guardar horarios', 'error');
+      }
+    }
+
+    // Función para guardar datos de pagos
+    async function savePaymentData() {
+      try {
+        const tbody = document.getElementById('paymentTableBody');
+        const rows = tbody.querySelectorAll('tr');
+        const paymentData = [];
+
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll('input');
+          const restante = row.querySelector('.restante').textContent;
+          paymentData.push({
+            fechaUltimaClase: inputs[0].value,
+            fechaProximoPago: inputs[1].value,
+            totalClases: inputs[2].value,
+            mes: inputs[3].value,
+            totalPagar: inputs[4].value,
+            fechaPago: inputs[5].value,
+            abono1: inputs[6].value,
+            abono2: inputs[7].value,
+            abono3: inputs[8].value,
+            restante: restante
+          });
+        });
+
+        await db.collection('students').doc(studentName).collection('payments').doc('current').set({
+          payments: paymentData,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showNotification('Datos de pagos guardados exitosamente', 'success');
+      } catch (error) {
+        console.error('Error al guardar pagos:', error);
+        showNotification('Error al guardar pagos', 'error');
+      }
+    }
+
+    // Función para guardar datos de clases
+    async function saveClassData() {
+      try {
+        const tbody = document.getElementById('classTableBody');
+        const rows = tbody.querySelectorAll('tr');
+        const classData = [];
+
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll('input');
+          const textarea = row.querySelector('textarea');
+          const restante = row.querySelector('.classes-remaining').textContent;
+          classData.push({
+            mesAnio: inputs[0].value,
+            totalClasesProgramadas: inputs[1].value,
+            totalAsistencias: inputs[2].value,
+            totalFaltas: inputs[3].value,
+            clasesReprogramar: inputs[4].value,
+            clasesRestantes: restante,
+            observaciones: textarea.value
+          });
+        });
+
+        await db.collection('students').doc(studentName).collection('classes').doc('current').set({
+          classes: classData,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showNotification('Datos de clases guardados exitosamente', 'success');
+      } catch (error) {
+        console.error('Error al guardar clases:', error);
+        showNotification('Error al guardar clases', 'error');
+      }
+    }
+
+    // Función para mostrar notificaciones
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      const bgColor = type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
+      notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transition-all ${bgColor}`;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // Función para cargar datos guardados
+    async function loadSavedData() {
+      try {
+        // Cargar horarios
+        const scheduleDoc = await db.collection('students').doc(studentName).collection('schedules').doc('current').get();
+        if (scheduleDoc.exists) {
+          const scheduleData = scheduleDoc.data().schedules;
+          const tbody = document.getElementById('scheduleTableBody');
+          tbody.innerHTML = '';
+          
+          scheduleData.forEach(schedule => {
+            const newRow = document.createElement('tr');
+                         newRow.innerHTML = `
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="time" class="w-full border-none focus:outline-none" value="${schedule.horaCentral}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="time" class="w-full border-none focus:outline-none" value="${schedule.horaClase}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="text" class="w-full border-none focus:outline-none" value="${schedule.diasClase}">
+               </td>
+             `;
+            tbody.appendChild(newRow);
+          });
+        }
+
+        // Cargar pagos
+        const paymentDoc = await db.collection('students').doc(studentName).collection('payments').doc('current').get();
+        if (paymentDoc.exists) {
+          const paymentData = paymentDoc.data().payments;
+          const tbody = document.getElementById('paymentTableBody');
+          tbody.innerHTML = '';
+          
+          paymentData.forEach(payment => {
+            const newRow = document.createElement('tr');
+                         newRow.innerHTML = `
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaUltimaClase}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaProximoPago}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none" value="${payment.totalClases}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="text" class="w-full border-none focus:outline-none" value="${payment.mes}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none payment-amount" value="${payment.totalPagar}" step="0.01" onchange="calculatePaymentRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaPago}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono1}" step="0.01" onchange="calculatePaymentRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono2}" step="0.01" onchange="calculatePaymentRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono3}" step="0.01" onchange="calculatePaymentRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
+                 ${payment.restante}
+               </td>
+             `;
+            tbody.appendChild(newRow);
+          });
+        }
+
+        // Cargar clases
+        const classDoc = await db.collection('students').doc(studentName).collection('classes').doc('current').get();
+        if (classDoc.exists) {
+          const classData = classDoc.data().classes;
+          const tbody = document.getElementById('classTableBody');
+          tbody.innerHTML = '';
+          
+          classData.forEach(classItem => {
+            const newRow = document.createElement('tr');
+                         newRow.innerHTML = `
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="text" class="w-full border-none focus:outline-none" value="${classItem.mesAnio}">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="${classItem.totalClasesProgramadas}" onchange="calculateClassRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.totalAsistencias}" onchange="calculateClassRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.totalFaltas}" onchange="calculateClassRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.clasesReprogramar}" onchange="calculateClassRemaining(this)">
+               </td>
+               <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
+                 ${classItem.clasesRestantes}
+               </td>
+               <td class="border border-gray-300 px-4 py-3">
+                 <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres">${classItem.observaciones}</textarea>
+               </td>
+             `;
+            tbody.appendChild(newRow);
+          });
+        }
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    }
+    
+    // Función para calcular el restante en la tabla de pagos
+    function calculatePaymentRemaining(input) {
+      const row = input.closest('tr');
+      const totalPagar = parseFloat(row.querySelector('.payment-amount').value) || 0;
+      const abono1 = parseFloat(row.querySelectorAll('.abono')[0].value) || 0;
+      const abono2 = parseFloat(row.querySelectorAll('.abono')[1].value) || 0;
+      const abono3 = parseFloat(row.querySelectorAll('.abono')[2].value) || 0;
+      
+      const restante = totalPagar - abono1 - abono2 - abono3;
+      row.querySelector('.restante').textContent = '$' + restante.toFixed(2);
+      
+      // Cambiar color según el restante
+      const restanteElement = row.querySelector('.restante');
+      if (restante > 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-red-600 restante';
+      } else if (restante === 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-green-600 restante';
+      } else {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-blue-600 restante';
+      }
+    }
+    
+    // Función para calcular el restante en la tabla de clases
+    function calculateClassRemaining(input) {
+      const row = input.closest('tr');
+      const programadas = parseFloat(row.querySelector('.classes-programmed').value) || 0;
+      const asistencias = parseFloat(row.querySelectorAll('.class-input')[0].value) || 0;
+      const faltas = parseFloat(row.querySelectorAll('.class-input')[1].value) || 0;
+      const reprogramar = parseFloat(row.querySelectorAll('.class-input')[2].value) || 0;
+      
+      const totalUsado = asistencias + faltas + reprogramar;
+      const restante = programadas - totalUsado;
+      
+      // Actualizar el campo de clases restantes
+      const restanteElement = row.querySelector('.classes-remaining');
+      restanteElement.textContent = restante;
+      
+      // Cambiar color según el restante
+      if (restante > 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-blue-600 classes-remaining';
+      } else if (restante === 0) {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining';
+      } else {
+        restanteElement.className = 'border border-gray-300 px-4 py-3 font-semibold text-red-600 classes-remaining';
+      }
+    }
+    
+    function addPaymentRow() {
+      const tbody = document.getElementById('paymentTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none" value="0">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="text" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none payment-amount" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none abono" value="0" step="0.01" onchange="calculatePaymentRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
+          $0.00
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+    
+    function addClassRow() {
+      const tbody = document.getElementById('classTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="text" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none class-input" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none class-input" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none class-input" value="0" onchange="calculateClassRemaining(this)">
+        </td>
+        <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
+          0
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres"></textarea>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+    
+    // Inicializar cálculos al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cargar datos guardados
+      loadSavedData();
+      
+      // Calcular restante en tabla de pagos
+      const paymentRows = document.querySelectorAll('#paymentTableBody tr');
+      paymentRows.forEach(row => {
+        calculatePaymentRemaining(row.querySelector('.payment-amount'));
+      });
+      
+      // Calcular restante en tabla de clases
+      const classRows = document.querySelectorAll('#classTableBody tr');
+      classRows.forEach(row => {
+        calculateClassRemaining(row.querySelector('.classes-programmed'));
+      });
+    });
+    // Función para agregar fila a la tabla de reprogramación
+    function addRescheduleRow() {
+      const tbody = document.getElementById('rescheduleTableBody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="number" class="w-full border-none focus:outline-none" placeholder="1">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="date" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <input type="time" class="w-full border-none focus:outline-none">
+        </td>
+        <td class="border border-gray-300 px-4 py-3">
+          <select class="w-full border-none focus:outline-none bg-transparent">
+            <option value="">Seleccionar</option>
+            <option value="Asistencia">Asistencia</option>
+            <option value="Falta">Falta</option>
+          </select>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+
+    // Función para guardar datos de reprogramación
+    async function saveRescheduleData() {
+      try {
+        const tbody = document.getElementById('rescheduleTableBody');
+        const rows = tbody.querySelectorAll('tr');
+        const rescheduleData = [];
+
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll('input, select');
+          rescheduleData.push({
+            numeroClase: inputs[0].value,
+            fechaClase: inputs[1].value,
+            fechaReprogramar: inputs[2].value,
+            horarioClase: inputs[3].value,
+            asistencia: inputs[4].value
+          });
+        });
+
+        await db.collection('students').doc(studentName).collection('reschedule').doc('current').set({
+          reschedule: rescheduleData,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showNotification('Datos de reprogramación guardados exitosamente', 'success');
+      } catch (error) {
+        console.error('Error al guardar reprogramación:', error);
+        showNotification('Error al guardar reprogramación', 'error');
+      }
+    }
+
+  </script>
+</body>
+</html>

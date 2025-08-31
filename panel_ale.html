@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Ale - It's English Time</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-blue-800 mb-2">👩‍🏫 Panel de Ale</h1>
+        <p class="text-gray-600">Gestiona tus alumnos y accede a las clases</p>
+      </div>
+      <div class="flex gap-4">
+        <button onclick="goToClasses()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all font-semibold">
+          <i class="fas fa-video mr-2"></i>CLASES
+        </button>
+        <button onclick="goToHome()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-3 rounded-xl shadow-lg transition-all">
+          <i class="fas fa-home mr-2"></i>Inicio
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">📚 Mis Alumnos</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="studentsGrid">
+        <button onclick="goToStudent('alumno_pao_rosales.html')" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Pao Rosales</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_nadia.html')" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Nadia</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_mía.html')" class="bg-gradient-to-r from-purple-500 to-violet-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Mía</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_ricardo.html')" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Ricardo</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_rouss.html')" class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Rouss</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_aimee.html')" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Aimee</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_christian.html')" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Christian</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_montse.html')" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Montse</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_oscar.html')" class="bg-gradient-to-r from-purple-500 to-violet-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Oscar</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_marycarmen.html')" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Marycarmen</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_ana.html')" class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Ana</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_dina.html')" class="bg-gradient-to-r from-red-500 to-pink-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Dina</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_loth.html')" class="bg-gradient-to-r from-red-500 to-pink-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Loth</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_miguel_lozano.html')" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Miguel Lozano</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_hanny.html')" class="bg-gradient-to-r from-purple-500 to-violet-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Hanny</p>
+          </div>
+        </button>
+        <button onclick="goToStudent('alumno_yuri.html')" class="bg-gradient-to-r from-teal-500 to-cyan-500 text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+          <div class="text-center">
+            <i class="fas fa-user-graduate text-2xl mb-2"></i>
+            <p class="font-semibold">Yuri</p>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Nueva sección: Facebook-style Posts -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">📢 Anuncios y Publicaciones</h2>
+        <div class="flex gap-2">
+          <button onclick="clearPosts()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition-all text-sm">
+            <i class="fas fa-trash mr-1"></i>Limpiar
+          </button>
+          <button onclick="showPostModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all">
+            <i class="fas fa-plus mr-2"></i>Nueva Publicación
+          </button>
+        </div>
+      </div>
+      
+      <!-- Área de posts -->
+      <div id="postsContainer" class="space-y-4">
+        <!-- Los posts se agregarán aquí dinámicamente -->
+      </div>
+    </div>
+
+    <!-- Modal para crear post -->
+    <div id="postModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+      <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-gray-800">📝 Crear Nueva Publicación</h3>
+          <button onclick="hidePostModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <form id="postForm" onsubmit="createPost(event)">
+          <div class="mb-6">
+            <label for="postContent" class="block text-sm font-medium text-gray-700 mb-2">
+              ¿Qué quieres compartir? <span class="text-gray-500">(Máximo 300 caracteres)</span>
+            </label>
+            <textarea 
+              id="postContent" 
+              name="postContent" 
+              rows="4" 
+              maxlength="300"
+              placeholder="Escribe tu anuncio aquí... Puedes usar emojis 😊📚🎉"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              required
+            ></textarea>
+            <div class="flex justify-between items-center mt-2">
+              <div class="text-sm text-gray-500">
+                <span id="charCount">0</span>/300 caracteres
+              </div>
+              <div class="flex gap-2">
+                <button type="button" onclick="toggleEmojiPicker()" class="text-2xl hover:scale-110 transition-transform">😊</button>
+                <div id="emojiPicker" class="hidden absolute bg-white border border-gray-300 rounded-lg p-2 shadow-lg z-10">
+                  <div class="grid grid-cols-8 gap-1">
+                    <button type="button" onclick="insertEmoji('😊')" class="text-xl hover:bg-gray-100 p-1 rounded">😊</button>
+                    <button type="button" onclick="insertEmoji('😂')" class="text-xl hover:bg-gray-100 p-1 rounded">😂</button>
+                    <button type="button" onclick="insertEmoji('❤️')" class="text-xl hover:bg-gray-100 p-1 rounded">❤️</button>
+                    <button type="button" onclick="insertEmoji('👍')" class="text-xl hover:bg-gray-100 p-1 rounded">👍</button>
+                    <button type="button" onclick="insertEmoji('🎉')" class="text-xl hover:bg-gray-100 p-1 rounded">🎉</button>
+                    <button type="button" onclick="insertEmoji('📚')" class="text-xl hover:bg-gray-100 p-1 rounded">📚</button>
+                    <button type="button" onclick="insertEmoji('💻')" class="text-xl hover:bg-gray-100 p-1 rounded">💻</button>
+                    <button type="button" onclick="insertEmoji('🌟')" class="text-xl hover:bg-gray-100 p-1 rounded">🌟</button>
+                    <button type="button" onclick="insertEmoji('🔥')" class="text-xl hover:bg-gray-100 p-1 rounded">🔥</button>
+                    <button type="button" onclick="insertEmoji('✨')" class="text-xl hover:bg-gray-100 p-1 rounded">✨</button>
+                    <button type="button" onclick="insertEmoji('🎯')" class="text-xl hover:bg-gray-100 p-1 rounded">🎯</button>
+                    <button type="button" onclick="insertEmoji('💡')" class="text-xl hover:bg-gray-100 p-1 rounded">💡</button>
+                    <button type="button" onclick="insertEmoji('🚀')" class="text-xl hover:bg-gray-100 p-1 rounded">🚀</button>
+                    <button type="button" onclick="insertEmoji('🎨')" class="text-xl hover:bg-gray-100 p-1 rounded">🎨</button>
+                    <button type="button" onclick="insertEmoji('🎵')" class="text-xl hover:bg-gray-100 p-1 rounded">🎵</button>
+                    <button type="button" onclick="insertEmoji('🏆')" class="text-xl hover:bg-gray-100 p-1 rounded">🏆</button>
+                    <button type="button" onclick="insertEmoji('📝')" class="text-xl hover:bg-gray-100 p-1 rounded">📝</button>
+                    <button type="button" onclick="insertEmoji('🔔')" class="text-xl hover:bg-gray-100 p-1 rounded">🔔</button>
+                    <button type="button" onclick="insertEmoji('💪')" class="text-xl hover:bg-gray-100 p-1 rounded">💪</button>
+                    <button type="button" onclick="insertEmoji('🎪')" class="text-xl hover:bg-gray-100 p-1 rounded">🎪</button>
+                    <button type="button" onclick="insertEmoji('🌈')" class="text-xl hover:bg-gray-100 p-1 rounded">🌈</button>
+                    <button type="button" onclick="insertEmoji('🍕')" class="text-xl hover:bg-gray-100 p-1 rounded">🍕</button>
+                    <button type="button" onclick="insertEmoji('☕')" class="text-xl hover:bg-gray-100 p-1 rounded">☕</button>
+                    <button type="button" onclick="insertEmoji('🎭')" class="text-xl hover:bg-gray-100 p-1 rounded">🎭</button>
+                    <button type="button" onclick="insertEmoji('📱')" class="text-xl hover:bg-gray-100 p-1 rounded">📱</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <label for="postImage" class="block text-sm font-medium text-gray-700 mb-2">
+              📷 Agregar Imagen (opcional)
+            </label>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+              <input type="file" id="postImage" name="postImage" accept="image/*" class="hidden" onchange="previewImage(event)">
+              <label for="postImage" class="cursor-pointer">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                <p class="text-gray-600">Haz clic para seleccionar una imagen o arrastra aquí</p>
+                <p class="text-sm text-gray-500 mt-1">También puedes pegar una imagen con Ctrl+V</p>
+              </label>
+            </div>
+            <div id="imagePreview" class="mt-4 hidden">
+              <img id="previewImg" src="" alt="Vista previa" class="max-w-full h-48 object-cover rounded-lg">
+              <button type="button" onclick="removeImage()" class="mt-2 text-red-600 hover:text-red-800 text-sm">
+                <i class="fas fa-trash mr-1"></i>Eliminar imagen
+              </button>
+            </div>
+          </div>
+          
+          <div class="flex justify-end gap-4">
+            <button type="button" onclick="hidePostModal()" class="px-6 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+              Cancelar
+            </button>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all">
+              <i class="fas fa-paper-plane mr-2"></i>Publicar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button onclick="logout()" class="text-sm text-red-600 underline hover:text-red-800">
+        <i class="fas fa-sign-out-alt mr-1"></i> Cerrar sesión
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function goToStudent(studentPage) {
+      window.location.href = studentPage;
+    }
+    
+    function goToClasses() {
+      window.open('https://meet.google.com/abc-defg-hij', '_blank');
+    }
+    
+    function goToHome() {
+      window.location.href = 'home.html';
+    }
+    
+    function logout() {
+      window.location.href = 'index.html';
+    }
+  </script>
+
+  <!-- Scripts para la funcionalidad de posts -->
+  <script>
+    // Variables globales
+    let posts = [];
+    let selectedImage = null;
+    let editingPostId = null;
+
+    // Contador de caracteres
+    document.addEventListener('DOMContentLoaded', function() {
+      const textarea = document.getElementById('postContent');
+      const charCount = document.getElementById('charCount');
+      
+      if (textarea && charCount) {
+        textarea.addEventListener('input', function() {
+          charCount.textContent = this.value.length;
+        });
+      }
+
+      // Permitir pegar imágenes
+      document.addEventListener('paste', function(e) {
+        const items = e.clipboardData.items;
+        for (let item of items) {
+          if (item.type.indexOf('image') !== -1) {
+            const file = item.getAsFile();
+            handleImageFile(file);
+            break;
+          }
+        }
+      });
+    });
+
+    // Funciones del modal
+    function showPostModal() {
+      document.getElementById('postModal').classList.remove('hidden');
+    }
+
+    function hidePostModal() {
+      document.getElementById('postModal').classList.add('hidden');
+      document.getElementById('postForm').reset();
+      document.getElementById('charCount').textContent = '0';
+      removeImage();
+      
+      // Resetear modal a estado de creación
+      editingPostId = null;
+      document.querySelector('#postModal h3').textContent = '📝 Crear Nueva Publicación';
+      document.querySelector('#postModal button[type="submit"]').innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Publicar';
+    }
+
+    // Funciones de emojis
+    function toggleEmojiPicker() {
+      const picker = document.getElementById('emojiPicker');
+      picker.classList.toggle('hidden');
+    }
+
+    function insertEmoji(emoji) {
+      const textarea = document.getElementById('postContent');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const text = textarea.value;
+      
+      textarea.value = text.substring(0, start) + emoji + text.substring(end);
+      textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+      textarea.focus();
+      
+      // Actualizar contador
+      document.getElementById('charCount').textContent = textarea.value.length;
+      
+      // Cerrar el picker después de insertar
+      document.getElementById('emojiPicker').classList.add('hidden');
+    }
+
+    // Manejo de imágenes
+    function previewImage(event) {
+      const file = event.target.files[0];
+      handleImageFile(file);
+    }
+
+    function handleImageFile(file) {
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          selectedImage = e.target.result;
+          document.getElementById('previewImg').src = selectedImage;
+          document.getElementById('imagePreview').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function removeImage() {
+      selectedImage = null;
+      document.getElementById('postImage').value = '';
+      document.getElementById('imagePreview').classList.add('hidden');
+    }
+
+    // Crear/Editar post
+    function createPost(event) {
+      event.preventDefault();
+      
+      const content = document.getElementById('postContent').value.trim();
+      if (!content) return;
+
+      if (editingPostId) {
+        // Editar post existente
+        const postIndex = posts.findIndex(p => p.id === editingPostId);
+        if (postIndex !== -1) {
+          posts[postIndex].content = content;
+          posts[postIndex].image = selectedImage;
+          posts[postIndex].edited = true;
+          posts[postIndex].editTimestamp = new Date().toLocaleString('es-ES');
+        }
+        editingPostId = null;
+      } else {
+        // Crear nuevo post
+        const post = {
+          id: Date.now(),
+          content: content,
+          image: selectedImage,
+          timestamp: new Date().toLocaleString('es-ES'),
+          author: 'Ale',
+          likes: 0,
+          liked: false
+        };
+        posts.unshift(post); // Agregar al inicio
+      }
+
+      renderPosts();
+      hidePostModal();
+      
+      // Guardar en localStorage
+      localStorage.setItem('ale_posts', JSON.stringify(posts));
+    }
+
+    // Renderizar posts
+    function renderPosts() {
+      const container = document.getElementById('postsContainer');
+      if (!container) return;
+
+      if (posts.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-newspaper text-4xl mb-4"></i>
+            <p>No hay publicaciones aún. ¡Sé el primero en compartir algo!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = posts.map(post => `
+        <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                ${post.author.charAt(0)}
+              </div>
+              <div class="ml-3">
+                <p class="font-semibold text-gray-800">${post.author}</p>
+                <p class="text-sm text-gray-500">
+                  ${post.timestamp}
+                  ${post.edited ? ' <span class="text-xs text-gray-400">(editado)</span>' : ''}
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editPost(${post.id})" class="bg-blue-100 hover:bg-blue-200 text-blue-600 px-3 py-2 rounded-lg transition-all font-semibold" title="Editar">
+                <i class="fas fa-edit mr-1"></i>Editar
+              </button>
+              <button onclick="deletePost(${post.id})" class="bg-red-100 hover:bg-red-200 text-red-600 px-3 py-2 rounded-lg transition-all font-semibold" title="Eliminar">
+                <i class="fas fa-trash mr-1"></i>Eliminar
+              </button>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <p class="text-gray-800 whitespace-pre-wrap">${post.content}</p>
+          </div>
+          
+          ${post.image ? `
+            <div class="mb-4">
+              <img src="${post.image}" alt="Imagen del post" class="max-w-full h-64 object-cover rounded-lg">
+            </div>
+          ` : ''}
+          
+          <div class="flex items-center text-gray-500 text-sm">
+            <button onclick="likePost(${post.id})" class="flex items-center mr-4 transition-colors ${post.liked ? 'text-red-500' : 'hover:text-red-500'}" id="likeBtn_${post.id}">
+              <i class="fas fa-heart mr-1 ${post.liked ? 'text-red-500' : ''}"></i>
+              <span>${post.liked ? 'Te gusta' : 'Me gusta'}</span>
+              ${post.likes > 0 ? `<span class="ml-1">(${post.likes})</span>` : ''}
+            </button>
+            <button onclick="copyPost(${post.id})" class="flex items-center hover:text-green-500 transition-colors">
+              <i class="fas fa-copy mr-1"></i>
+              <span>Copiar</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Funciones adicionales
+    function editPost(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (post) {
+        editingPostId = postId;
+        document.getElementById('postContent').value = post.content;
+        document.getElementById('charCount').textContent = post.content.length;
+        
+        if (post.image) {
+          selectedImage = post.image;
+          document.getElementById('previewImg').src = post.image;
+          document.getElementById('imagePreview').classList.remove('hidden');
+        }
+        
+        // Cambiar título del modal
+        document.querySelector('#postModal h3').textContent = '📝 Editar Publicación';
+        document.querySelector('#postModal button[type="submit"]').innerHTML = '<i class="fas fa-save mr-2"></i>Guardar Cambios';
+        
+        showPostModal();
+      }
+    }
+
+    function deletePost(postId) {
+      if (confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
+        posts = posts.filter(post => post.id !== postId);
+        renderPosts();
+        localStorage.setItem('ale_posts', JSON.stringify(posts));
+      }
+    }
+
+    function likePost(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (post) {
+        if (post.liked) {
+          post.liked = false;
+          post.likes = Math.max(0, post.likes - 1);
+        } else {
+          post.liked = true;
+          post.likes = (post.likes || 0) + 1;
+        }
+        
+        renderPosts();
+        localStorage.setItem('ale_posts', JSON.stringify(posts));
+      }
+    }
+
+    function copyPost(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (post) {
+        navigator.clipboard.writeText(post.content).then(() => {
+          alert('Contenido copiado al portapapeles! 📋');
+        });
+      }
+    }
+
+    // Cargar posts al iniciar
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedPosts = localStorage.getItem('ale_posts');
+      if (savedPosts) {
+        posts = JSON.parse(savedPosts);
+        // Asegurar que los posts tengan las propiedades necesarias
+        posts.forEach(post => {
+          if (!post.hasOwnProperty('likes')) post.likes = 0;
+          if (!post.hasOwnProperty('liked')) post.liked = false;
+          if (!post.hasOwnProperty('edited')) post.edited = false;
+        });
+      } else {
+        // Solo crear post de ejemplo si no hay posts guardados
+        const examplePost = {
+          id: Date.now(),
+          content: '¡Hola! Este es un post de ejemplo con botones de editar y eliminar ✨',
+          image: null,
+          timestamp: new Date().toLocaleString('es-ES'),
+          author: 'Ale',
+          likes: 0,
+          liked: false,
+          edited: false
+        };
+        posts.push(examplePost);
+        localStorage.setItem('ale_posts', JSON.stringify(posts));
+      }
+      
+      renderPosts();
+      
+      // Cerrar emoji picker al hacer clic fuera
+      document.addEventListener('click', function(e) {
+        const picker = document.getElementById('emojiPicker');
+        const emojiBtn = e.target.closest('button[onclick="toggleEmojiPicker()"]');
+        if (!picker.contains(e.target) && !emojiBtn) {
+          picker.classList.add('hidden');
+        }
+      });
+    });
+
+    // Función para limpiar posts
+    function clearPosts() {
+      localStorage.removeItem('ale_posts');
+      posts = [];
+      renderPosts();
+    }
+  </script>
+
+</body>
+</html>

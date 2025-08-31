@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Reglas para la colección de estudiantes
+    match /students/{studentId} {
+      // Permitir lectura y escritura para todos los documentos de estudiantes
+      allow read, write: if true;
+      
+      // Reglas para subcolecciones de estudiantes
+      match /{subcollection}/{documentId} {
+        allow read, write: if true;
+      }
+    }
+    
+    // Reglas para cualquier otra colección que puedas agregar en el futuro
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

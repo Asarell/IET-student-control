@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - It's English Time</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+
+  <!-- Anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-indigo-200 min-h-screen flex items-center justify-center">
+
+  <div id="login-card" class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md transition-all">
+    <h2 class="text-3xl font-bold text-center mb-6 text-indigo-600">It's English Time</h2>
+    
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-600">Correo electrónico</label>
+        <input type="email" id="email" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+      </div>
+      <div>
+        <label class="block text-gray-600">Contraseña</label>
+        <input type="password" id="password" required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+      </div>
+      <button type="submit"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-md transition-all">
+        <i class="fas fa-sign-in-alt mr-2"></i>Ingresar
+      </button>
+    </form>
+
+    <p id="errorMessage" class="text-red-500 text-sm mt-4 text-center hidden"></p>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Configuración Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbS_UCnlfw3P2loqpTl6Oh8A2Xswz3rPY",
+      authDomain: "iet-student-control.firebaseapp.com",
+      projectId: "iet-student-control",
+      storageBucket: "iet-student-control.firebasestorage.app",
+      messagingSenderId: "635566809825",
+      appId: "1:635566809825:web:696842a0cb60356ed10da0"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Manejar el evento submit del formulario
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorEl = document.getElementById("errorMessage");
+
+      errorEl.classList.add("hidden");  // Oculta mensaje previo
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          // Login exitoso, redirigir a home.html
+          window.location.href = "home.html";
+        })
+        .catch(() => {
+          // Mostrar mensaje de error
+          errorEl.textContent = "Correo o contraseña incorrectos.";
+          errorEl.classList.remove("hidden");
+        });
+    });
+
+    // Animación entrada login card
+    anime({
+      targets: "#login-card",
+      translateY: [-100, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      easing: "easeOutExpo"
+    });
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profesores - It's English Time</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gradient-to-br from-white to-purple-100 min-h-screen p-6">
+
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-purple-800 mb-8 text-center">👩‍🏫 Panel de Profesores</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <button onclick="goToPanel('panel_ale.html')" class="bg-blue-600 text-white py-4 rounded-xl shadow hover:bg-purple-700 transition-all font-semibold">
+        👩‍🏫 Ale
+      </button>
+      <button onclick="goToPanel('panel_jesus.html')" class="bg-yellow-600 text-white py-4 rounded-xl shadow hover:bg-purple-700 transition-all font-semibold">
+        👨‍🏫 Jesús
+      </button>
+      <button onclick="goToPanel('panel_patty.html')" class="bg-orange-600 text-white py-4 rounded-xl shadow hover:bg-purple-700 transition-all font-semibold">
+        👩‍🏫 Patty
+      </button>
+      <button onclick="goToPanel('panel_astrid.html')" class="bg-purple-600 text-white py-4 rounded-xl shadow hover:bg-purple-700 transition-all font-semibold">
+        👩‍🏫 Astrid
+      </button>
+      <button onclick="goToPanel('panel_blanca.html')" class="bg-pink-600 text-white py-4 rounded-xl shadow hover:bg-purple-700 transition-all font-semibold">
+        👩‍🏫 Blanca
+      </button>
+      <button onclick="goToPanel('panel_erwin.html')" class="bg-green-600 text-white py-4 rounded-xl shadow hover:bg-purple-700 transition-all font-semibold">
+        👨‍🏫 Erwin
+      </button>
+    </div>
+
+    <div class="mt-10 text-center">
+      <button onclick="logout()" class="text-sm text-red-600 underline hover:text-red-800">
+        <i class="fas fa-sign-out-alt mr-1"></i> Cerrar sesión
+      </button>
+    </div>
+  </div>
+
+  <!-- Protección de acceso con Firebase Auth -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbS_UCnlfw3P2loqpTl6Oh8A2Xswz3rPY",
+      authDomain: "iet-student-control.firebaseapp.com",
+      projectId: "iet-student-control",
+      storageBucket: "iet-student-control.firebasestorage.app",
+      messagingSenderId: "635566809825",
+      appId: "1:635566809825:web:696842a0cb60356ed10da0"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "index.html"; // Redirige si no hay sesión
+      }
+    });
+
+    window.logout = () => {
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+      });
+    };
+
+    window.goToPanel = (panel) => {
+      window.location.href = panel;
+    };
+  </script>
+</body>
+</html>
+
