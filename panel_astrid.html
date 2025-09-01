@@ -6,6 +6,9 @@
   <title>Panel Astrid - It's English Time</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-6">
   <div class="max-w-6xl mx-auto">
@@ -189,6 +192,20 @@
     }
   </script>  <!-- Scripts para la funcionalidad de posts -->
   <script>
+        // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbS_UCnlfw3P2loqpTl6Oh8A2Xswz3rPY",
+      authDomain: "iet-student-control.firebaseapp.com",
+      projectId: "iet-student-control",
+      storageBucket: "iet-student-control.firebasestorage.app",
+      messagingSenderId: "635566809825",
+      appId: "1:635566809825:web:696842a0cb60356ed10da0"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    
     // Variables globales
     let posts = [];
     let selectedImage = null;
@@ -316,8 +333,6 @@
       renderPosts();
       hidePostModal();
       
-      // Guardar en localStorage
-      localStorage.setItem('astrid_posts', JSON.stringify(posts));
     }
 
     // Renderizar posts
@@ -411,7 +426,7 @@
       if (confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
         posts = posts.filter(post => post.id !== postId);
         renderPosts();
-        localStorage.setItem('astrid_posts', JSON.stringify(posts));
+        
       }
     }
 
@@ -427,7 +442,7 @@
         }
         
         renderPosts();
-        localStorage.setItem('astrid_posts', JSON.stringify(posts));
+        
       }
     }
 
@@ -442,7 +457,6 @@
 
     // Cargar posts al iniciar
     document.addEventListener('DOMContentLoaded', function() {
-      const savedPosts = localStorage.getItem('astrid_posts');
       if (savedPosts) {
         posts = JSON.parse(savedPosts);
         // Asegurar que los posts tengan las propiedades necesarias
@@ -464,7 +478,7 @@
           edited: false
         };
         posts.push(examplePost);
-        localStorage.setItem('astrid_posts', JSON.stringify(posts));
+        
       }
       
       renderPosts();
@@ -481,7 +495,7 @@
 
     // Función para limpiar posts
     function clearPosts() {
-      localStorage.removeItem('astrid_posts');
+      
       posts = [];
       renderPosts();
     }
