@@ -322,24 +322,38 @@
         // Editar post existente
         const postIndex = posts.findIndex(p => p.id === editingPostId);
         if (postIndex !== -1) {
-          posts[postIndex].content = content;
-          posts[postIndex].image = selectedImage;
-          posts[postIndex].edited = true;
-          posts[postIndex].editTimestamp = new Date().toLocaleString('es-ES');
+          const postToUpdate = posts[postIndex];
+          postToUpdate.content = content;
+          postToUpdate.image = selectedImage;
+          postToUpdate.edited = true;
+          postToUpdate.editTimestamp = new Date().toLocaleString('es-ES');
+          
+          // Actualizar en Firebase
+          db.collection('professor_posts').doc('astrid').collection('posts').doc(postToUpdate.id.toString()).update({
+            content: content,
+            image: selectedImage,
+            edited: true,
+            editTimestamp: new Date().toLocaleString('es-ES')
+          });
         }
         editingPostId = null;
       } else {
         // Crear nuevo post
+        const postId = Date.now();
         const post = {
-          id: Date.now(),
+          id: postId,
           content: content,
           image: selectedImage,
           timestamp: new Date().toLocaleString('es-ES'),
           author: 'Astrid',
           likes: 0,
-          liked: false
+          liked: false,
+          edited: false
         };
         posts.unshift(post); // Agregar al inicio
+        
+        // Guardar en Firebase
+        db.collection('professor_posts').doc('astrid').collection('posts').doc(postId.toString()).set(post);
       }
 
       renderPosts();
@@ -439,6 +453,8 @@
         posts = posts.filter(post => post.id !== postId);
         renderPosts();
         
+        // Eliminar de Firebase
+        db.collection('professor_posts').doc('astrid').collection('posts').doc(postId.toString()).delete();
       }
     }
 
@@ -455,6 +471,10 @@
         
         renderPosts();
         
+        // Actualizar en Firebase
+        db.collection('professor_posts').doc('astrid').collection('posts').doc(postId.toString()).update({
+          likes: post.likes
+        });
       }
     }
 
@@ -469,31 +489,45 @@
 
     // Cargar posts al iniciar
     document.addEventListener('DOMContentLoaded', function() {
-      if (savedPosts) {
-        posts = JSON.parse(savedPosts);
-        // Asegurar que los posts tengan las propiedades necesarias
-        posts.forEach(post => {
-          if (!post.hasOwnProperty('likes')) post.likes = 0;
-          if (!post.hasOwnProperty('liked')) post.liked = false;
-          if (!post.hasOwnProperty('edited')) post.edited = false;
+      // Cargar posts desde Firebase
+      db.collection('professor_posts').doc('astrid').collection('posts')
+        .orderBy('timestamp', 'desc')
+        .get()
+        .then((querySnapshot) => {
+          posts = [];
+          querySnapshot.forEach((doc) => {
+            const post = doc.data();
+            // Asegurar que los posts tengan las propiedades necesarias
+            if (!post.hasOwnProperty('likes')) post.likes = 0;
+            if (!post.hasOwnProperty('liked')) post.liked = false;
+            if (!post.hasOwnProperty('edited')) post.edited = false;
+            posts.push(post);
+          });
+          
+          // Si no hay posts, crear uno de ejemplo
+          if (posts.length === 0) {
+            const examplePost = {
+              id: Date.now(),
+              content: '¡Hola! Este es un post de ejemplo con botones de editar y eliminar ✨',
+              image: null,
+              timestamp: new Date().toLocaleString('es-ES'),
+              author: 'Astrid',
+              likes: 0,
+              liked: false,
+              edited: false
+            };
+            posts.push(examplePost);
+            
+            // Guardar el post de ejemplo en Firebase
+            db.collection('professor_posts').doc('astrid').collection('posts').doc(examplePost.id.toString()).set(examplePost);
+          }
+          
+          renderPosts();
+        })
+        .catch((error) => {
+          console.error("Error cargando posts:", error);
+          renderPosts();
         });
-      } else {
-        // Solo crear post de ejemplo si no hay posts guardados
-        const examplePost = {
-          id: Date.now(),
-          content: '¡Hola! Este es un post de ejemplo con botones de editar y eliminar ✨',
-          image: null,
-          timestamp: new Date().toLocaleString('es-ES'),
-          author: 'Astrid',
-          likes: 0,
-          liked: false,
-          edited: false
-        };
-        posts.push(examplePost);
-        
-      }
-      
-      renderPosts();
       
       // Cerrar emoji picker al hacer clic fuera
       document.addEventListener('click', function(e) {
@@ -507,9 +541,15 @@
 
     // Función para limpiar posts
     function clearPosts() {
-      
-      posts = [];
-      renderPosts();
+      if (confirm('¿Estás seguro de que quieres eliminar TODAS las publicaciones? Esta acción no se puede deshacer.')) {
+        // Eliminar todos los posts de Firebase
+        posts.forEach(post => {
+          db.collection('professor_posts').doc('astrid').collection('posts').doc(post.id.toString()).delete();
+        });
+        
+        posts = [];
+        renderPosts();
+      }
     }
   </script>
 
