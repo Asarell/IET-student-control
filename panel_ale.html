@@ -288,7 +288,7 @@
       messagingSenderId: "635566809825",
       appId: "1:635566809825:web:696842a0cb60356ed10da0"
     };
-    
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
@@ -447,7 +447,7 @@
             <p>No hay publicaciones aún. ¡Sé el primero en compartir algo!</p>
           </div>
         `;
-        return;
+          return;
       }
 
       container.innerHTML = posts.map(post => `
