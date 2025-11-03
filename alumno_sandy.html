@@ -7,12 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gradient-to-br from-purple-50 to-violet-100 min-h-screen p-6">
+<body class="bg-gradient-to-br from-pink-50 to-rose-100 min-h-screen p-6">
   <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
       <div>
         <h1 class="text-4xl font-bold text-pink-800 mb-2">👩‍🎓 Sandy</h1>
-        <p class="text-gray-600">Alumno de Patty - Control de Pagos y Asistencias</p>
+        <p class="text-gray-600">Alumno de Erwin - Control de Pagos y Asistencias</p>
       </div>
       <div class="flex gap-4">
         <button onclick="goToClasses()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all font-semibold">
@@ -263,15 +263,15 @@
     const studentName = 'Sandy';
 
     function goToClasses() {
-      window.open('INSERT_GOOGLE_MEET_LINK_HERE', '_blank');
+      window.open('https://meet.google.com/zaf-ppaz-kbr', '_blank');
     }
     
     function goToGoogleDrive() {
-      window.open('INSERT_GOOGLE_DRIVE_LINK_HERE', '_blank');
+      window.open('https://drive.google.com/drive/folders/1Ao9OHI_E7FFJL9XHbAAZARNPEpyJwKmJ?usp=sharing', '_blank');
     }
     
     function goToPanel() {
-      window.location.href = 'panel_patty.html';
+      window.location.href = 'panel_erwin.html';
     }
 
     // Función para agregar fila a la tabla de horarios
@@ -416,17 +416,17 @@
           
           scheduleData.forEach(schedule => {
             const newRow = document.createElement('tr');
-                         newRow.innerHTML = `
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="time" class="w-full border-none focus:outline-none" value="${schedule.horaCentral}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="time" class="w-full border-none focus:outline-none" value="${schedule.horaClase}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="text" class="w-full border-none focus:outline-none" value="${schedule.diasClase}">
-               </td>
-             `;
+            newRow.innerHTML = `
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none" value="${schedule.horaCentral}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none" value="${schedule.horaClase}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="${schedule.diasClase}">
+              </td>
+            `;
             tbody.appendChild(newRow);
           });
         }
@@ -440,38 +440,38 @@
           
           paymentData.forEach(payment => {
             const newRow = document.createElement('tr');
-                         newRow.innerHTML = `
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaUltimaClase}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaProximoPago}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none" value="${payment.totalClases}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="text" class="w-full border-none focus:outline-none" value="${payment.mes}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none payment-amount" value="${payment.totalPagar}" step="0.01" onchange="calculatePaymentRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaPago}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono1}" step="0.01" onchange="calculatePaymentRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono2}" step="0.01" onchange="calculatePaymentRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono3}" step="0.01" onchange="calculatePaymentRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
-                 ${payment.restante}
-               </td>
-             `;
+            newRow.innerHTML = `
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaUltimaClase}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaProximoPago}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none" value="${payment.totalClases}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="${payment.mes}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none payment-amount" value="${payment.totalPagar}" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="${payment.fechaPago}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono1}" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono2}" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none abono" value="${payment.abono3}" step="0.01" onchange="calculatePaymentRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 restante">
+                ${payment.restante}
+              </td>
+            `;
             tbody.appendChild(newRow);
           });
         }
@@ -485,29 +485,63 @@
           
           classData.forEach(classItem => {
             const newRow = document.createElement('tr');
-                         newRow.innerHTML = `
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="text" class="w-full border-none focus:outline-none" value="${classItem.mesAnio}">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="${classItem.totalClasesProgramadas}" onchange="calculateClassRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.totalAsistencias}" onchange="calculateClassRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.totalFaltas}" onchange="calculateClassRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.clasesReprogramar}" onchange="calculateClassRemaining(this)">
-               </td>
-               <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
-                 ${classItem.clasesRestantes}
-               </td>
-               <td class="border border-gray-300 px-4 py-3">
-                 <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres">${classItem.observaciones}</textarea>
-               </td>
-             `;
+            newRow.innerHTML = `
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="text" class="w-full border-none focus:outline-none" value="${classItem.mesAnio}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none classes-programmed" value="${classItem.totalClasesProgramadas}" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.totalAsistencias}" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.totalFaltas}" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none class-input" value="${classItem.clasesReprogramar}" onchange="calculateClassRemaining(this)">
+              </td>
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600 classes-remaining">
+                ${classItem.clasesRestantes}
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <textarea class="w-full border-none focus:outline-none resize-none" rows="2" maxlength="300" placeholder="Máximo 300 caracteres">${classItem.observaciones}</textarea>
+              </td>
+            `;
+            tbody.appendChild(newRow);
+          });
+        }
+
+        // Cargar reprogramación
+        const rescheduleDoc = await db.collection('students').doc(studentName).collection('reschedule').doc('current').get();
+        if (rescheduleDoc.exists) {
+          const rescheduleData = rescheduleDoc.data().reschedule;
+          const tbody = document.getElementById('rescheduleTableBody');
+          tbody.innerHTML = '';
+
+          rescheduleData.forEach(reschedule => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="number" class="w-full border-none focus:outline-none" value="${reschedule.numeroClase}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="${reschedule.fechaClase}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="date" class="w-full border-none focus:outline-none" value="${reschedule.fechaReprogramar}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <input type="time" class="w-full border-none focus:outline-none" value="${reschedule.horarioClase}">
+              </td>
+              <td class="border border-gray-300 px-4 py-3">
+                <select class="w-full border-none focus:outline-none bg-transparent">
+                  <option value="">Seleccionar</option>
+                  <option value="Asistencia" ${reschedule.asistencia === 'Asistencia' ? 'selected' : ''}>Asistencia</option>
+                  <option value="Falta" ${reschedule.asistencia === 'Falta' ? 'selected' : ''}>Falta</option>
+                </select>
+              </td>
+            `;
             tbody.appendChild(newRow);
           });
         }
