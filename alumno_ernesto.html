@@ -360,7 +360,7 @@
     async function saveClassData() {
       try {
         const tbody = document.getElementById('classTableBody');
-        const rows = tbody.querySelectorAll('tr');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
         const classData = [];
 
         rows.forEach(row => {
@@ -699,7 +699,7 @@
     async function saveRescheduleData() {
       try {
         const tbody = document.getElementById('rescheduleTableBody');
-        const rows = tbody.querySelectorAll('tr');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
         const rescheduleData = [];
 
         rows.forEach(row => {
