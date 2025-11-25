@@ -351,6 +351,7 @@
           content: content,
           image: selectedImage,
           timestamp: new Date().toLocaleString('es-ES'),
+          createdAt: postId, // Campo numérico para ordenar en Firestore
           author: 'Blanca',
           likes: 0,
           liked: false,
@@ -494,45 +495,58 @@
 
     // Cargar posts al iniciar
     document.addEventListener('DOMContentLoaded', function() {
-      // Cargar posts desde Firebase
-      db.collection('professor_posts').doc('blanca').collection('posts')
-        .orderBy('timestamp', 'desc')
-        .get()
-        .then((querySnapshot) => {
-          posts = [];
-          querySnapshot.forEach((doc) => {
-            const post = doc.data();
-            // Asegurar que los posts tengan las propiedades necesarias
-            if (!post.hasOwnProperty('likes')) post.likes = 0;
-            if (!post.hasOwnProperty('liked')) post.liked = false;
-            if (!post.hasOwnProperty('edited')) post.edited = false;
-            posts.push(post);
+      // Función para cargar y procesar posts
+      function loadPosts() {
+        // Intentar cargar con ordenamiento por id
+        db.collection('professor_posts').doc('blanca').collection('posts')
+          .orderBy('id', 'desc')
+          .get()
+          .then((querySnapshot) => {
+            processPosts(querySnapshot);
+          })
+          .catch((error) => {
+            console.warn("Error con ordenamiento, intentando sin ordenar:", error);
+            // Si falla el ordenamiento, cargar sin ordenar y ordenar en JavaScript
+            db.collection('professor_posts').doc('blanca').collection('posts')
+              .get()
+              .then((querySnapshot) => {
+                processPosts(querySnapshot, true); // true indica que debemos ordenar manualmente
+              })
+              .catch((loadError) => {
+                console.error("Error cargando posts:", loadError);
+                renderPosts();
+              });
           });
-          
-          // Si no hay posts, crear uno de ejemplo
-          if (posts.length === 0) {
-            const examplePost = {
-              id: Date.now(),
-              content: '¡Hola! Este es un post de ejemplo con botones de editar y eliminar ✨',
-              image: null,
-              timestamp: new Date().toLocaleString('es-ES'),
-              author: 'Blanca',
-              likes: 0,
-              liked: false,
-              edited: false
-            };
-            posts.push(examplePost);
-            
-            // Guardar el post de ejemplo en Firebase
-            db.collection('professor_posts').doc('blanca').collection('posts').doc(examplePost.id.toString()).set(examplePost);
-          }
-          
-          renderPosts();
-        })
-        .catch((error) => {
-          console.error("Error cargando posts:", error);
-          renderPosts();
+      }
+      
+      // Función para procesar los posts cargados
+      function processPosts(querySnapshot, sortManually = false) {
+        posts = [];
+        querySnapshot.forEach((doc) => {
+          const post = doc.data();
+          // Asegurar que los posts tengan las propiedades necesarias
+          if (!post.hasOwnProperty('likes')) post.likes = 0;
+          if (!post.hasOwnProperty('liked')) post.liked = false;
+          if (!post.hasOwnProperty('edited')) post.edited = false;
+          // Si el post no tiene createdAt, usar el id (para posts antiguos)
+          if (!post.hasOwnProperty('createdAt')) post.createdAt = post.id || Date.now();
+          posts.push(post);
         });
+        
+        // Ordenar manualmente si es necesario
+        if (sortManually) {
+          posts.sort((a, b) => {
+            const idA = a.id || a.createdAt || 0;
+            const idB = b.id || b.createdAt || 0;
+            return idB - idA; // Orden descendente
+          });
+        }
+        
+        renderPosts();
+      }
+      
+      // Cargar posts
+      loadPosts();
       
       // Cerrar emoji picker al hacer clic fuera
       document.addEventListener('click', function(e) {
