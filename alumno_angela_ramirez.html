@@ -262,19 +262,17 @@
     const db = firebase.firestore();
     const studentName = 'Angela Ramírez';
 
-    // ========== LIGAS: Reemplaza las URLs debajo con las reales ==========
-    // TODO: Pegar aquí la liga de Google Meet (ej: https://meet.google.com/xxx-xxxx-xxx)
-    const GOOGLE_MEET_URL = 'PEGAR_LIGA_GOOGLE_MEET_AQUI';
-    // TODO: Pegar aquí la liga de Google Drive (ej: https://drive.google.com/drive/folders/...)
-    const GOOGLE_DRIVE_URL = 'PEGAR_LIGA_GOOGLE_DRIVE_AQUI';
-    // =====================================================================
+    // ========== LIGAS ==========
+    const GOOGLE_MEET_URL = 'https://meet.google.com/bdd-huvb-vxo';
+    const GOOGLE_DRIVE_URL = 'https://drive.google.com/drive/folders/14lV40JY5rTLiVrvFnNTcHK09gZajZY_F?usp=sharing';
+    // ===========================
 
     function goToClasses() {
-      window.open(https://meet.google.com/bdd-huvb-vxo, '_blank');
+      window.open(GOOGLE_MEET_URL, '_blank');
     }
     
     function goToGoogleDrive() {
-      window.open(https://drive.google.com/drive/folders/14lV40JY5rTLiVrvFnNTcHK09gZajZY_F?usp=sharing, '_blank');
+      window.open(GOOGLE_DRIVE_URL, '_blank');
     }
     
     function goToPanel() {
