@@ -262,22 +262,19 @@
     const db = firebase.firestore();
     const studentName = 'Selene';
 
-    // ========== LIGAS: Reemplaza las URLs debajo con las reales ==========
-    // TODO: Pegar aquí la liga de Google Meet (ej: https://meet.google.com/xxx-xxxx-xxx)
-    const GOOGLE_MEET_URL = 'https://meet.google.com/tdw-iprq-rdg
-';
-    // TODO: Pegar aquí la liga de Google Drive (ej: https://drive.google.com/drive/folders/...)
+    // ========== LIGAS ==========
+    const GOOGLE_MEET_URL = 'https://meet.google.com/tdw-iprq-rdg';
     const GOOGLE_DRIVE_URL = 'https://drive.google.com/drive/folders/1CheRSsW9a8q5nbQRirov7uOar29ohEyZ?usp=sharing';
-    // =====================================================================
+    // ===========================
 
     function goToClasses() {
       window.open(GOOGLE_MEET_URL, '_blank');
     }
-    
+
     function goToGoogleDrive() {
       window.open(GOOGLE_DRIVE_URL, '_blank');
     }
-    
+
     function goToPanel() {
       window.location.href = 'panel_ale.html';
     }
