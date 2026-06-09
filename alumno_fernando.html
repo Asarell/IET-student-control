@@ -262,30 +262,13 @@
     const db = firebase.firestore();
     const studentName = 'Fernando';
 
-    // ═══════════════════════════════════════════════════════════════════
-    // TODO FERNANDO — Google Meet: sustituye PENDIENTE_GOOGLE_MEET por tu liga
-    // completa (ej. https://meet.google.com/xxx-yyyy-zzz)
-    // ═══════════════════════════════════════════════════════════════════
     function goToClasses() {
-      const meetUrl = 'PENDIENTE_GOOGLE_MEET';
-      if (!meetUrl || meetUrl === 'PENDIENTE_GOOGLE_MEET') {
-        alert('Falta configurar Google Meet: en alumno_fernando.html busca PENDIENTE_GOOGLE_MEET y pega tu enlace.');
-        return;
-      }
+      const meetUrl = 'https://meet.google.com/siz-vrms-ftv';
       window.open(meetUrl, '_blank');
     }
 
-    // ═══════════════════════════════════════════════════════════════════
-    // TODO FERNANDO — Google Drive: sustituye PENDIENTE_GOOGLE_DRIVE por tu
-    // liga de carpeta de Drive
-    // ═══════════════════════════════════════════════════════════════════
     function goToGoogleDrive() {
-      const driveUrl = 'PENDIENTE_GOOGLE_DRIVE';
-      if (!driveUrl || driveUrl === 'PENDIENTE_GOOGLE_DRIVE') {
-        alert('Falta configurar Google Drive: en alumno_fernando.html busca PENDIENTE_GOOGLE_DRIVE y pega tu enlace.');
-        return;
-      }
-      window.open(driveUrl, '_blank');
+      window.open('https://drive.google.com/drive/folders/1OkxaYnWhPlguPu_H1XK9reQyeBicAuP2?usp=sharing', '_blank');
     }
 
     function goToPanel() {
