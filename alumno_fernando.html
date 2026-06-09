@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carmen - It's English Time</title>
+  <title>Fernando - It's English Time</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a2f1a4d5e1.js" crossorigin="anonymous"></script>
 </head>
@@ -11,7 +11,7 @@
   <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
       <div>
-        <h1 class="text-4xl font-bold text-pink-800 mb-2">👩‍🎓 Carmen</h1>
+        <h1 class="text-4xl font-bold text-pink-800 mb-2">👩‍🎓 Fernando</h1>
         <p class="text-gray-600">Alumno de Brenda - Control de Pagos y Asistencias</p>
       </div>
       <div class="flex gap-4">
@@ -260,15 +260,32 @@
     // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    const studentName = 'Carmen';
+    const studentName = 'Fernando';
 
+    // ═══════════════════════════════════════════════════════════════════
+    // TODO FERNANDO — Google Meet: sustituye PENDIENTE_GOOGLE_MEET por tu liga
+    // completa (ej. https://meet.google.com/xxx-yyyy-zzz)
+    // ═══════════════════════════════════════════════════════════════════
     function goToClasses() {
-      const meetUrl = 'https://meet.google.com/siz-vrms-ftv';
+      const meetUrl = 'PENDIENTE_GOOGLE_MEET';
+      if (!meetUrl || meetUrl === 'PENDIENTE_GOOGLE_MEET') {
+        alert('Falta configurar Google Meet: en alumno_fernando.html busca PENDIENTE_GOOGLE_MEET y pega tu enlace.');
+        return;
+      }
       window.open(meetUrl, '_blank');
     }
 
+    // ═══════════════════════════════════════════════════════════════════
+    // TODO FERNANDO — Google Drive: sustituye PENDIENTE_GOOGLE_DRIVE por tu
+    // liga de carpeta de Drive
+    // ═══════════════════════════════════════════════════════════════════
     function goToGoogleDrive() {
-      window.open('https://drive.google.com/drive/folders/1iGXIx6dOLz4tkmsGOQuAce6_hUXbCmls?usp=sharing', '_blank');
+      const driveUrl = 'PENDIENTE_GOOGLE_DRIVE';
+      if (!driveUrl || driveUrl === 'PENDIENTE_GOOGLE_DRIVE') {
+        alert('Falta configurar Google Drive: en alumno_fernando.html busca PENDIENTE_GOOGLE_DRIVE y pega tu enlace.');
+        return;
+      }
+      window.open(driveUrl, '_blank');
     }
 
     function goToPanel() {
